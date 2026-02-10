@@ -59,6 +59,10 @@ function handleNoInteraction() {
 	noClicks++;
 	sadness++;
 
+	const hint = document.getElementById("hintQuote");
+	if (hint) hint.style.display = "none";
+
+
 	moveNoButton();
 
 	// Background + hearts
@@ -140,10 +144,17 @@ yesBtn.addEventListener("click", () => {
 
 /* ---------------- MOBILE AUTO SCROLL ---------------- */
 document.addEventListener("DOMContentLoaded", () => {
+	const hint = document.getElementById("hintQuote");
+
+	if (isMobile && hint) {
+		hint.style.display = "none";
+	}
+
 	if (isMobile) {
 		questionBox.scrollIntoView({ behavior: "smooth" });
 	}
 });
+
 
 /* ---------------- HAMBURGER ---------------- */
 const hamburgerBtn = document.getElementById("hamburgerBtn");
@@ -152,3 +163,4 @@ if (hamburgerBtn) {
 		questionBox.scrollIntoView({ behavior: "smooth" });
 	});
 }
+
