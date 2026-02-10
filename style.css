@@ -138,6 +138,49 @@ button {
     font-family: 'Georgia', serif; /* Optional: A more formal font */
 }
 
+
+/* MOBILE FRIENDLY LETTER */
+.letter {
+    background: #fff;
+    border-radius: 18px;
+    padding: 22px;
+    font-family: 'Georgia', serif;
+    box-shadow: 0 10px 25px rgba(255, 77, 109, 0.25);
+}
+
+.letter h1 {
+    font-size: 1.5rem;
+    margin-bottom: 18px;
+}
+
+.letter p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+/* Hamburger-style spacing on phones */
+@media (max-width: 600px) {
+    .yes-box {
+        width: 95%;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .letter {
+        padding: 18px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
 .hidden {
 	display: none;
 }
