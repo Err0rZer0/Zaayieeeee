@@ -101,17 +101,33 @@ button {
 
 /* YES FINAL */
 .yes-box {
-	background: white;
-	padding: 30px;
-	border-radius: 25px;
-	width: 95%;
-	max-width: 800px;
+	background: #fffafa; 
+	padding: 40px 30px;
+	border: 2px solid #ffb3c6;
+	border-radius: 30px;
+	width: 90%
+	max-width: 500px;
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
 	text-align: center;
-	box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+	box-shadow: 0 20px 50px rgba(255, 179, 198, 0.4);
 	animation: pop 0.5s ease;
+}
+
+.letter h1 {
+    color: #ff4d6d;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+}
+
+.letter p {
+    color: #555;
+    line-height: 1.6;
+    font-size: 1.05rem;
+    margin-bottom: 15px;
+    text-align: left; /* Better for reading long text */
 }
 
 .hidden {
@@ -192,3 +208,4 @@ body.rain .hearts {
 	from { background-position-y: 0; }
 	to   { background-position-y: 1000px; }
 }
+
