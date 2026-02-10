@@ -1,7 +1,7 @@
 const body = document.body;
 let sadness = 0;
 let noClicks = 0;
-const maxNoClicks = 4; // NO can teleport/click up to 4 times
+const maxNoClicks = 5; // NO can teleport/click up to 4 times
 
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
@@ -56,17 +56,32 @@ noBtn.addEventListener("click", () => {
 	document.querySelector(".hearts").style.filter =
 		`grayscale(${sadness * 40}%) blur(${sadness}px)`;
 
-	// Show sad GIF on first NO click
-	if (noClicks === 1) {
-		msg.textContent = "Ay… ngieee si baby nmaannn bakit no 🥺💔";
-		yesBtn.style.transform = "translateX(-50%) scale(1.4)";
-		changeGif("15195810");
-	}
-
-	// Remove NO after max clicks
-	if (noClicks >= maxNoClicks) {
-		noBtn.style.display = "none";
-		msg.textContent = "You have no choice, u said yes eh hehehe >:)";
+		switch (noClicks) {
+		case 1:
+			msg.textContent = "Ay… ngieee si baby nmaannn bakit no 🥺💔";
+			yesBtn.style.transform = "translateX(-50%) scale(1.2)";
+			changeGif("12782870542608816906"); // sad teddy GIF
+			break;
+		case 2:
+			msg.textContent = "Seriously babyyy? 😢";
+			changeGif("9743203998655728266"); // broken hearted bear gif
+			break;
+		case 3:
+			msg.textContent = "Sgeee bahala ka dyaaaannn hmmpp :(((";
+			changeGif("20040131"); // Sad bear
+			break;
+		case 4:
+			msg.textContent = "What a cruel worlddd… 🥺";
+			changeGif("20083344"); // Sad bear bed
+			break;
+		case 5:
+			noBtn.style.display = "none"; // NO disappears
+			changeGif("16466364824287508559");
+			msg.textContent = "You have no choice, u said yes to me long ago eh hehehe >:)";
+			break;
+		default:
+			noBtn.style.display = "none";
+			break;
 	}
 });
 
