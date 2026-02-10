@@ -28,47 +28,37 @@ function moveNoButton() {
     noBtn.style.top = `${y}px`;
 }
 
-// Hover for Desktop
-noBtn.addEventListener("mouseover", () => {
-    if (!isMobile && noClicks < maxMoves) moveNoButton();
-});
-
-// MOBILE: tap
-noBtn.addEventListener("touchstart", (e) => {
-	e.preventDefault();
-	if (noClicks < maxNoClicks) moveNoButton();
-});
-
 // NO click
 noBtn.addEventListener("click", () => {
     noClicks++;
     sadness++;
 
-    // Teleport effect for the first few clicks
-    if (noClicks <= maxMoves) {
-        moveNoButton();
-    }
+    // ALWAYS teleport on click (1 click = 1 teleport)
+    moveNoButton();
 
-    // Visual feedback
+    // Rain + background mood
     document.body.classList.add("rain");
     body.style.background = `linear-gradient(135deg, 
-        rgb(${255 - sadness*30}, ${214 - sadness*20}, ${224 - sadness*20}), 
-        rgb(${255 - sadness*40}, ${238 - sadness*30}, ${243 - sadness*30}))`;
+        rgb(${255 - sadness*25}, ${214 - sadness*15}, ${224 - sadness*15}), 
+        rgb(${255 - sadness*35}, ${238 - sadness*25}, ${243 - sadness*25}))`;
 
-    // Progressive Messages
+    // NO progression (1 click = next case)
     if (noClicks === 1) {
         msg.textContent = "Ay… bakit no? 🥺💔";
         changeGif("12782870542608816906");
-    } else if (noClicks === 2) {
+    } 
+    else if (noClicks === 2) {
         msg.textContent = "Seriously babyyy? 😢";
         changeGif("9743203998655728266");
-    } else if (noClicks === 3) {
-        msg.textContent = "Isa pa... hmmmph! 😤";
+    } 
+    else if (noClicks === 3) {
+        msg.textContent = "Isa pa… hmmmph! 😤";
         changeGif("20040131");
-    } else {
-        // Final state: No button disappears or becomes useless
+    } 
+    else {
+        // FINAL NO
         noBtn.style.display = "none";
-        msg.textContent = "You have no choice now! Click Yes! >:)";
+        msg.textContent = "Wala ka nang choice 😈 click Yes na!";
         changeGif("16466364824287508559");
         yesBtn.style.transform = "translateX(-50%) scale(1.5)";
     }
@@ -121,4 +111,3 @@ if (hamburgerBtn) {
 		questionBox.scrollIntoView({ behavior: "smooth" });
 	});
 }
-
