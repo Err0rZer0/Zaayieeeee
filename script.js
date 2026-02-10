@@ -9,6 +9,7 @@ const msg = document.getElementById("msg");
 const questionBox = document.getElementById("questionBox");
 const yesBox = document.getElementById("yesBox");
 const btnArea = document.getElementById("btnArea");
+const hintQuote = document.getElementById("hintQuote");
 
 // MOBILE DETECTION
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -30,6 +31,9 @@ function moveNoButton() {
 
 // NO click
 noBtn.addEventListener("click", () => {
+	if (hintQuote) {
+    hintQuote.style.display = "0";
+    }
     noClicks++;
     sadness++;
 
@@ -111,3 +115,4 @@ if (hamburgerBtn) {
 		questionBox.scrollIntoView({ behavior: "smooth" });
 	});
 }
+
