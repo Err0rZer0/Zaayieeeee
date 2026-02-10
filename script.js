@@ -9,7 +9,6 @@ const msg = document.getElementById("msg");
 const questionBox = document.getElementById("questionBox");
 const yesBox = document.getElementById("yesBox");
 const btnArea = document.getElementById("btnArea");
-const hintQuote = document.getElementById("hintQuote");
 
 // MOBILE DETECTION
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -31,9 +30,6 @@ function moveNoButton() {
 
 // NO click
 noBtn.addEventListener("click", () => {
-	if (hintQuote) {
-    hintQuote.style.display = "0";
-    }
     noClicks++;
     sadness++;
 
@@ -48,21 +44,21 @@ noBtn.addEventListener("click", () => {
 
     // NO progression (1 click = next case)
     if (noClicks === 1) {
-        msg.textContent = "Ay… bakit no? 🥺💔";
+        msg.textContent = "Ay… bakit noo? 🥺💔";
         changeGif("12782870542608816906");
     } 
     else if (noClicks === 2) {
-        msg.textContent = "Seriously babyyy? 😢";
+        msg.textContent = "ihhhh Seriously babyyy? Hmmmmp 1 more 😤";
         changeGif("9743203998655728266");
     } 
     else if (noClicks === 3) {
-        msg.textContent = "Isa pa… hmmmph! 😤";
+        msg.textContent = "What a cruel world 🥺";
         changeGif("20040131");
     } 
     else {
         // FINAL NO
         noBtn.style.display = "none";
-        msg.textContent = "Wala ka nang choice 😈 click Yes na!";
+        msg.textContent = "Wala ka nang choice, you said yes to me long ago na eh 😈";
         changeGif("16466364824287508559");
         yesBtn.style.transform = "translateX(-50%) scale(1.5)";
     }
@@ -115,4 +111,3 @@ if (hamburgerBtn) {
 		questionBox.scrollIntoView({ behavior: "smooth" });
 	});
 }
-
