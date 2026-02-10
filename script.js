@@ -15,6 +15,14 @@ const gifContainer = document.getElementById("gifContainer");
 
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
+document.addEventListener("DOMContentLoaded", () => {
+	const hint = document.getElementById("hintQuote");
+
+	if (hint && isMobile) {
+		hint.style.display = "none";
+	}
+});
+
 /* ---------------- MOVE NO BUTTON ---------------- */
 function moveNoButton() {
 	const areaRect = btnArea.getBoundingClientRect();
@@ -52,16 +60,15 @@ function changeGif(postId) {
 
 /* ---------------- NO INTERACTION (LIMITED) ---------------- */
 function handleNoInteraction() {
-	if (isTransitioning) return;
-	if (noClicks >= maxNoClicks) return;
+	if (isTransitioning || noClicks >= maxNoClicks) return;
 
 	isTransitioning = true;
 	noClicks++;
 	sadness++;
 
+	// HIDE HINT (ONCE, SAFE)
 	const hint = document.getElementById("hintQuote");
 	if (hint) hint.style.display = "none";
-
 
 	moveNoButton();
 
@@ -111,7 +118,7 @@ function handleNoInteraction() {
 
 	setTimeout(() => {
 		isTransitioning = false;
-	}, 450); // prevents spam
+	}, 450);
 }
 
 /* ---------------- EVENTS ---------------- */
@@ -163,4 +170,5 @@ if (hamburgerBtn) {
 		questionBox.scrollIntoView({ behavior: "smooth" });
 	});
 }
+
 
