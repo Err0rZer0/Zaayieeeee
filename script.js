@@ -27,25 +27,16 @@ function moveNoButton() {
 	noBtn.style.top = y + "px";
 }
 
-// DESKTOP: hover
-noBtn.addEventListener("mouseover", () => {
-	if (!isMobile && noClicks < maxNoClicks) moveNoButton();
-});
-
 
 // NO click
-noBtn.addEventListener("click", () => {
-
-	if (noClicks < maxNoClicks) {
-		moveNoButton(); // MOVE once per click
-	}
+function handleNoInteraction() {
+	if (noClicks >= maxNoClicks) return;
 
 	noClicks++;
 	sadness++;
 
-	// Hide hint
-	const hint = document.getElementById("hintQuote");
-	if (hint) hint.style.display = "none";
+	// MOVE BUTTON
+	moveNoButton();
 
 	// Darken background & hearts
 	document.body.classList.add("rain");
@@ -57,6 +48,7 @@ noBtn.addEventListener("click", () => {
 	document.querySelector(".hearts").style.filter =
 		`grayscale(${sadness * 40}%) blur(${sadness}px)`;
 
+	// STORY PROGRESSION (EXACTLY 5 STEPS)
 	switch (noClicks) {
 		case 1:
 			msg.textContent = "Ay… ngieee si baby nmaannn bakit no 🥺💔";
@@ -86,6 +78,18 @@ noBtn.addEventListener("click", () => {
 				"You have no choice, u said yes to me long ago eh hehehe >:)";
 			break;
 	}
+}
+
+
+// Desktop hover
+if (!isMobile) {
+	noBtn.addEventListener("mouseover", handleNoInteraction);
+}
+
+// Mobile tap / click
+noBtn.addEventListener("click", (e) => {
+	e.preventDefault();
+	handleNoInteraction();
 });
 
 
