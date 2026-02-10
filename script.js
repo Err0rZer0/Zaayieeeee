@@ -1,7 +1,7 @@
 const body = document.body;
 let sadness = 0;
 let noClicks = 0;
-const maxNoClicks = 5; // NO can teleport/click up to 4 times
+const maxNoClicks = 3; // NO can teleport/click up to 4 times
 
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
@@ -13,23 +13,24 @@ const btnArea = document.getElementById("btnArea");
 // MOBILE DETECTION
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-// MOVE NO INSIDE BUTTON AREA
 function moveNoButton() {
-	const areaRect = btnArea.getBoundingClientRect();
-	const btnRect = noBtn.getBoundingClientRect();
-	const maxX = areaRect.width - btnRect.width;
-	const maxY = areaRect.height - btnRect.height;
+    const areaRect = btnArea.getBoundingClientRect();
+    const btnRect = noBtn.getBoundingClientRect();
+    
+    // Ensure it stays within the btn-area
+    const maxX = areaRect.width - btnRect.width;
+    const maxY = areaRect.height - btnRect.height;
 
-	const x = Math.random() * maxX;
-	const y = Math.random() * maxY;
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
 
-	noBtn.style.left = x + "px";
-	noBtn.style.top = y + "px";
+    noBtn.style.left = `${x}px`;
+    noBtn.style.top = `${y}px`;
 }
 
-// DESKTOP: hover
+// Hover for Desktop
 noBtn.addEventListener("mouseover", () => {
-	if (!isMobile && noClicks < maxNoClicks) moveNoButton();
+    if (!isMobile && noClicks < maxMoves) moveNoButton();
 });
 
 // MOBILE: tap
@@ -40,49 +41,37 @@ noBtn.addEventListener("touchstart", (e) => {
 
 // NO click
 noBtn.addEventListener("click", () => {
-	noClicks++;
-	sadness++;
+    noClicks++;
+    sadness++;
 
-	// Hide hint
-	const hint = document.getElementById("hintQuote");
-	if (hint) hint.style.display = "none";
+    // Teleport effect for the first few clicks
+    if (noClicks <= maxMoves) {
+        moveNoButton();
+    }
 
-	// Darken background & hearts
-	document.body.classList.add("rain");
-	body.style.background =
-		`linear-gradient(135deg,
-		rgb(${255 - sadness*30}, ${214 - sadness*20}, ${224 - sadness*20}),
-		rgb(${255 - sadness*40}, ${238 - sadness*30}, ${243 - sadness*30}))`;
-	document.querySelector(".hearts").style.filter =
-		`grayscale(${sadness * 40}%) blur(${sadness}px)`;
+    // Visual feedback
+    document.body.classList.add("rain");
+    body.style.background = `linear-gradient(135deg, 
+        rgb(${255 - sadness*30}, ${214 - sadness*20}, ${224 - sadness*20}), 
+        rgb(${255 - sadness*40}, ${238 - sadness*30}, ${243 - sadness*30}))`;
 
-		switch (noClicks) {
-		case 1:
-			msg.textContent = "Ay… ngieee si baby nmaannn bakit no 🥺💔";
-			yesBtn.style.transform = "translateX(-50%) scale(1.2)";
-			changeGif("12782870542608816906"); // sad teddy GIF
-			break;
-		case 2:
-			msg.textContent = "Seriously babyyy? 😢";
-			changeGif("9743203998655728266"); // broken hearted bear gif
-			break;
-		case 3:
-			msg.textContent = "Sgeee bahala ka dyaaaannn hmmpp :(((";
-			changeGif("20040131"); // Sad bear
-			break;
-		case 4:
-			msg.textContent = "What a cruel worlddd… 🥺";
-			changeGif("20083344"); // Sad bear bed
-			break;
-		case 5:
-			noBtn.style.display = "none"; // NO disappears
-			changeGif("16466364824287508559")
-			msg.textContent = "You have no choice, u said yes eh hehehe >:)";
-			break;
-		default:
-			noBtn.style.display = "none";
-			break;
-	}
+    // Progressive Messages
+    if (noClicks === 1) {
+        msg.textContent = "Ay… bakit no? 🥺💔";
+        changeGif("12782870542608816906");
+    } else if (noClicks === 2) {
+        msg.textContent = "Seriously babyyy? 😢";
+        changeGif("9743203998655728266");
+    } else if (noClicks === 3) {
+        msg.textContent = "Isa pa... hmmmph! 😤";
+        changeGif("20040131");
+    } else {
+        // Final state: No button disappears or becomes useless
+        noBtn.style.display = "none";
+        msg.textContent = "You have no choice now! Click Yes! >:)";
+        changeGif("16466364824287508559");
+        yesBtn.style.transform = "translateX(-50%) scale(1.5)";
+    }
 });
 
 // CLICK YES
@@ -132,3 +121,4 @@ if (hamburgerBtn) {
 		questionBox.scrollIntoView({ behavior: "smooth" });
 	});
 }
+
