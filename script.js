@@ -32,14 +32,14 @@ noBtn.addEventListener("mouseover", () => {
 	if (!isMobile && noClicks < maxNoClicks) moveNoButton();
 });
 
-// MOBILE: tap
-noBtn.addEventListener("touchstart", (e) => {
-	e.preventDefault();
-	if (noClicks < maxNoClicks) moveNoButton();
-});
 
 // NO click
 noBtn.addEventListener("click", () => {
+
+	if (noClicks < maxNoClicks) {
+		moveNoButton(); // MOVE once per click
+	}
+
 	noClicks++;
 	sadness++;
 
@@ -53,37 +53,41 @@ noBtn.addEventListener("click", () => {
 		`linear-gradient(135deg,
 		rgb(${255 - sadness*30}, ${214 - sadness*20}, ${224 - sadness*20}),
 		rgb(${255 - sadness*40}, ${238 - sadness*30}, ${243 - sadness*30}))`;
+
 	document.querySelector(".hearts").style.filter =
 		`grayscale(${sadness * 40}%) blur(${sadness}px)`;
 
-		switch (noClicks) {
+	switch (noClicks) {
 		case 1:
 			msg.textContent = "Ay… ngieee si baby nmaannn bakit no 🥺💔";
 			yesBtn.style.transform = "translateX(-50%) scale(1.2)";
-			changeGif("12782870542608816906"); // sad teddy GIF
+			changeGif("12782870542608816906");
 			break;
+
 		case 2:
 			msg.textContent = "Seriously babyyy? 😢";
-			changeGif("9743203998655728266"); // broken hearted bear gif
+			changeGif("9743203998655728266");
 			break;
+
 		case 3:
 			msg.textContent = "Sgeee bahala ka dyaaaannn hmmpp :(((";
-			changeGif("20040131"); // Sad bear
+			changeGif("20040131");
 			break;
+
 		case 4:
 			msg.textContent = "What a cruel worlddd… 🥺";
-			changeGif("20083344"); // Sad bear bed
+			changeGif("20083344");
 			break;
+
 		case 5:
-			noBtn.style.display = "none"; // NO disappears
-			changeGif("16466364824287508559");
-			msg.textContent = "You have no choice, u said yes to me long ago eh hehehe >:)";
-			break;
-		default:
 			noBtn.style.display = "none";
+			changeGif("16466364824287508559");
+			msg.textContent =
+				"You have no choice, u said yes to me long ago eh hehehe >:)";
 			break;
 	}
 });
+
 
 // CLICK YES
 yesBtn.addEventListener("click", () => {
