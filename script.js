@@ -27,14 +27,19 @@ function moveNoButton() {
 	noBtn.style.top = y + "px";
 }
 
+// DESKTOP: hover
+noBtn.addEventListener("mouseover", () => {
+	if (!isMobile && noClicks < maxNoClicks) moveNoButton();
+});
 
+// MOBILE: tap
+noBtn.addEventListener("touchstart", (e) => {
+	e.preventDefault();
+	if (noClicks < maxNoClicks) moveNoButton();
+});
 
 // NO click
 noBtn.addEventListener("click", () => {
-	if (noClicks < maxNoClicks) {
-	moveNoButton(); // teleport ON CLICK
-	}
-
 	noClicks++;
 	sadness++;
 
@@ -71,8 +76,8 @@ noBtn.addEventListener("click", () => {
 			break;
 		case 5:
 			noBtn.style.display = "none"; // NO disappears
-			changeGif("16466364824287508559");
-			msg.textContent = "You have no choice, u said yes to me long ago  eh hehehe >:)";
+			changeGif("16466364824287508559")
+			msg.textContent = "You have no choice, u said yes eh hehehe >:)";
 			break;
 		default:
 			noBtn.style.display = "none";
