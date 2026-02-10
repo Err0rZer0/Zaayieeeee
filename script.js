@@ -1,6 +1,8 @@
 const body = document.body;
-let sadness = 0;
+let noStage = 1; // current "No section"
 let noClicks = 0;
+const maxNoClicks = 5;
+let sadness = 0;
 const maxNoClicks = 5; // NO can teleport/click up to 4 times
 
 const noBtn = document.getElementById("noBtn");
@@ -31,12 +33,8 @@ function moveNoButton() {
 
 // NO click
 noBtn.addEventListener("click", () => {
-	if (noClicks < maxNoClicks) {
-	moveNoButton(); // teleport ON CLICK
-	}
-
-	noClicks++;
 	sadness++;
+	noClicks++;
 
 	// Hide hint
 	const hint = document.getElementById("hintQuote");
@@ -51,34 +49,38 @@ noBtn.addEventListener("click", () => {
 	document.querySelector(".hearts").style.filter =
 		`grayscale(${sadness * 40}%) blur(${sadness}px)`;
 
-		switch (noClicks) {
-		case 1:
-			msg.textContent = "Ay… ngieee si baby nmaannn bakit no 🥺💔";
-			yesBtn.style.transform = "translateX(-50%) scale(1.2)";
-			changeGif("12782870542608816906"); // sad teddy GIF
+	// Teleport NO button
+	if (noClicks <= 5) moveNoButton();
+
+	// Handle case messages
+	switch (true) {
+		case noClicks <= 5 && noClicks > 0:
+			if (noClicks === 1) msg.textContent = "Ay… ngieee si baby nmaannn bakit no 🥺💔";
+			if (noClicks === 2) msg.textContent = "Seriously babyyy? 😢";
+			if (noClicks === 3) msg.textContent = "Sgeee bahala ka dyaaaannn hmmpp :(((";
+			if (noClicks === 4) msg.textContent = "What a cruel worlddd… 🥺";
+			if (noClicks === 5) {
+				msg.textContent = "You are really stubborn… 😏";
+				changeGif("16466364824287508559"); // change GIF
+				currentCase++; // move to next stage
+				noClicks = 0;   // reset clicks for next case
+			}
 			break;
-		case 2:
-			msg.textContent = "Seriously babyyy? 😢";
-			changeGif("9743203998655728266"); // broken hearted bear gif
+
+		case currentCase === 2 && noClicks <= 5:
+			// same logic for case 2
+			if (noClicks === 1) msg.textContent = "Still no? Really? 🥴";
+			if (noClicks === 2) msg.textContent = "You really like saying no huh 😤";
+			if (noClicks === 5) {
+				msg.textContent = "Haha, you can’t resist! 💖";
+				noBtn.style.display = "none"; // final hide
+			}
 			break;
-		case 3:
-			msg.textContent = "Sgeee bahala ka dyaaaannn hmmpp :(((";
-			changeGif("20040131"); // Sad bear
-			break;
-		case 4:
-			msg.textContent = "What a cruel worlddd… 🥺";
-			changeGif("20083344"); // Sad bear bed
-			break;
-		case 5:
-			noBtn.style.display = "none"; // NO disappears
-			changeGif("16466364824287508559");
-			msg.textContent = "You have no choice, u said yes to me long ago  eh hehehe >:)";
-			break;
-		default:
-			noBtn.style.display = "none";
-			break;
+
+		// Add more cases similarly if you want
 	}
 });
+
 
 // CLICK YES
 yesBtn.addEventListener("click", () => {
@@ -127,3 +129,4 @@ if (hamburgerBtn) {
 		questionBox.scrollIntoView({ behavior: "smooth" });
 	});
 }
+
