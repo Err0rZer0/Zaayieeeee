@@ -115,19 +115,22 @@ button {
 	animation: pop 0.5s ease;
 }
 
+.letter {
+    text-align: left; /* Aligns text professionally */
+    color: #333;
+}
+
 .letter h1 {
+    text-align: center;
     color: #ff4d6d;
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    letter-spacing: -1px;
+    margin-bottom: 25px;
 }
 
 .letter p {
-    color: #555;
-    line-height: 1.6;
-    font-size: 1.05rem;
+    line-height: 1.8; /* Increased line height for formal look */
+    font-size: 1rem;
     margin-bottom: 15px;
-    text-align: left; /* Better for reading long text */
+    font-family: 'Georgia', serif; /* Optional: A more formal font */
 }
 
 .hidden {
@@ -208,4 +211,5 @@ body.rain .hearts {
 	from { background-position-y: 0; }
 	to   { background-position-y: 1000px; }
 }
+
 
